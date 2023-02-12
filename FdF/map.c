@@ -6,11 +6,12 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 20:22:26 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:36:03 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdlib.h>
 
 int	check_file(char *file_name)
 {
@@ -39,22 +40,21 @@ char	*rem_line_feed(char *str)
 
 	i = -1;
 	len = ft_strlen(str);
-	if (str[len] == '\0')
+	if (str[len] != '\0' || str[len - 1] != '\n')
 	{
-		if (str[len - 1] == '\n')
-		{
-			new = (char *)malloc(sizeof(char) * len);
-			if (!new)
-			{
-				error_handler(3);
-				return (NULL);
-			}
-			while (str[++i] != '\n')
-				new[i] = str[i];
-			if (str[i] == '\n')
-				new[i] = '\0';
-		}
+		error_handler(3);
+		return (NULL);
 	}
+	new = (char *)malloc(sizeof(char) * len);
+	if (!new)
+	{
+		error_handler(3);
+		return (NULL);
+	}
+	while (str[++i] != '\n')
+		new[i] = str[i];
+	if (str[i] == '\n')
+		new[i] = '\0';
 	return (new);
 }
 
@@ -107,6 +107,7 @@ void	dim_map(char *argv, t_fdf *fdf)
 	char	**strs;
 	int		i;
 	int		fd;
+	t_arr	*arr;
 
 	i = 0;
 	fd = open(argv, O_RDONLY);
@@ -123,9 +124,12 @@ void	dim_map(char *argv, t_fdf *fdf)
 		free(aux);
 		aux = get_next_line(fd);
 	}
-	fdf->arr->n = ++i;
+	i++;
+	arr = (t_arr *)malloc(sizeof(t_arr));
+	fdf->arr = arr;
 	fdf->arr->ps = (t_p **)malloc(sizeof(t_p *) * i);
 	if (!(fdf->arr->ps))
 		error_handler(0);
+	fdf->arr->n = i;
 	close(fd);
 }

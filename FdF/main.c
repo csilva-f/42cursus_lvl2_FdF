@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 20:22:46 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:13:52 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv)
 			error_handler(4);
 			return (0);
 		}
+		print_map(fdf);
 		win = create_window(W_HEIGHT, W_WIDTH, "FdF");
 		if (!win)
 			return (1);

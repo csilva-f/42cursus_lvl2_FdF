@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 20:23:02 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:13:43 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	fill_coord_color(t_fdf *fdf, char *str, int k);
 void	fill_map_2(char *aux, t_fdf *fdf, int k, int i);
 void	fill_map(char *argv, t_fdf *fdf);
 int		valid_map(t_fdf fdf);
-
+void	print_map(t_fdf fdf);
 t_win	*create_window(int h, int w, char *str);
 t_img	*create_image(int h, int w, t_win *window);
 

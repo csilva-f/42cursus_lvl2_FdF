@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:43:34 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 20:22:01 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:07:22 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	valid_map(t_fdf fdf)
 				return (0);
 			else if (flag == 0)
 				aux = fdf.arr->ps[i]->xmax;
-			flag = 1;	
+			flag = 1;
 		}
 		i++;
 	}

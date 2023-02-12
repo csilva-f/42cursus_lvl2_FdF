@@ -71,7 +71,7 @@ char	*ft_trim_str(char *str)
 	char	*str_new;
 
 	i = 0;
-	len = ft_strlen(str);
+	len = ft_strlen2(str);
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
 	if (str[i] == '\0')
