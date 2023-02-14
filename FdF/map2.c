@@ -6,22 +6,20 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:43:34 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 02:56:13 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:39:50 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
-char	***dim_map(char *argv, t_fdf *fdf)
+char	***dim_map(char *argv, t_fdf *fdf, int nl)
 {
 	char	*aux;
 	char	***gstr;
 	int		*graph;
 
 	graph = (int *)malloc(4 * sizeof(int));
-	graph[0] = count_l(argv);
-	gstr = (char ***)malloc(sizeof(char **) * graph[0]);
+	gstr = (char ***)malloc(sizeof(char **) * nl);
 	if (!gstr)
 		error_handler(0);
 	graph[0] = -1;
@@ -86,21 +84,6 @@ char	***rem_bl(char ***gstr, int nl)
 	return (gstr);
 }
 
-void	print_fdf(t_fdf *fdf)
-{
-	int	i;
-
-	i = 0;
-	while (i < fdf->arr->n)
-	{
-		printf("i: %d |x: %d  |y: %d |z: %d |", i, fdf->arr->ps[i]->x, \
-				fdf->arr->ps[i]->y, fdf->arr->ps[i]->z);
-		printf("if: %d |max: %d\n", fdf->arr->ps[i]->is_f, \
-				fdf->arr->ps[i]->xmax);
-		i++;
-	}
-}
-
 void	fill_params(t_fdf *fdf, int *g, char ***gstr)
 {
 	fdf->arr->ps[g[2]]->z = ft_atoi(gstr[g[0]][g[1]]);
@@ -115,4 +98,35 @@ void	fill_params(t_fdf *fdf, int *g, char ***gstr)
 		fdf->arr->ps[g[2]]->is_f = 0;
 		fdf->arr->ps[g[2]]->xmax = 0;
 	}
+}
+
+void	fill_map(char *argv, t_fdf *fdf)
+{
+	int		*g;
+	char	***gstr;
+
+	gstr = dim_map(argv, fdf, count_l(argv));
+	g = (int *)malloc(3 * sizeof(int));
+	g[0] = -1;
+	g[2] = 0;
+	while (++g[0] < fdf->arr->nl)
+	{
+		g[1] = -1;
+		while (++g[1] < fdf->arr->nc)
+		{
+			gstr = rem_bl(gstr, fdf->arr->nl);
+			fdf->arr->ps[g[2]] = (t_p *)malloc(sizeof(t_p));
+			if (!(fdf->arr->ps[g[2]]))
+				error_handler(0);
+			fdf->arr->ps[g[2]]->x = g[1];
+			fdf->arr->ps[g[2]]->y = g[0];
+			if (check_coma(gstr[g[0]][g[1]]) == 1)
+				fill_coord_color(fdf, gstr[g[0]][g[1]], g[2]);
+			else
+				fill_params(fdf, g, gstr);
+			g[2]++;
+		}
+	}
+	//tirar isto daqui mais tarde
+	print_fdf(fdf);
 }

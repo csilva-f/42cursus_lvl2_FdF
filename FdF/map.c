@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 02:58:39 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:30:21 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ int	count_l(char *argv)
 void	init_fdf(t_fdf *fdf, int i, int j, int k)
 {
 	fdf->arr = (t_arr *)malloc(sizeof(t_arr));
+	if (!(fdf->arr))
+		error_handler(0);
 	fdf->arr->ps = (t_p **)malloc(sizeof(t_p *) * k);
-	if (!(fdf->arr->ps) || !(fdf->arr))
+	if (!(fdf->arr->ps))
 		error_handler(0);
 	fdf->arr->n = k;
 	fdf->arr->nl = i;

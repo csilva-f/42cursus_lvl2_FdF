@@ -6,12 +6,13 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 03:31:23 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:43:04 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "libft/ft_printf.h"
+#include "minilibx-linux/mlx.h"
+#include <stdlib.h>
 
 void	error_handler(int type)
 {
@@ -29,10 +30,34 @@ void	error_handler(int type)
 	ft_printf("\n");
 }
 
+int	totalfree(t_fdf *fdf)
+{
+	mlx_destroy_image(fdf->win->mlx_ptr, fdf->img->img_ptr);
+	mlx_destroy_window(fdf->win->mlx_ptr, fdf->win->win_ptr);
+	mlx_destroy_display(fdf->win->mlx_ptr);
+	free(fdf->win->mlx_ptr);
+	exit(0);
+}
+
+int	close_fdf(t_fdf *fdf)
+{
+	totalfree(fdf);
+	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
+}
+
+/*int	mlx_key_hook(void *win_ptr, int (*funct_ptr)(), void *param);
+{
+	if (keycode == ESC)
+		close_game(fractal);
+	printf("d\n", keycode);
+	return (0);
+}
+
+int	key*/
+
 int	main(int argc, char **argv)
 {
-	t_win	*win;
-	t_img	*img;
 	t_fdf	fdf;
 
 	if (argc == 2)
@@ -48,16 +73,16 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		fill_map(argv[1], &fdf);
-		win = create_window(W_HEIGHT, W_WIDTH, "FdF");
-		if (!win)
+		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF");
+		if (!(fdf.win))
 			return (1);
-		img = create_image(W_HEIGHT, W_WIDTH, win);
-		if (!img)
+		fdf.img = create_image(W_HEIGHT, W_WIDTH, fdf.win);
+		if (!(fdf.img))
 			return (1);
-		mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, img->img_ptr, 0, 0);
-		mlx_loop(win->mlx_ptr);
-		return (0);
+		mlx_put_image_to_window(fdf.win->mlx_ptr, fdf.win->win_ptr, fdf.img->img_ptr, 0, 0);
+		mlx_loop(fdf.win->mlx_ptr);
 	}
-	error_handler(1);
+	else
+		error_handler(1);
 	return (0);
 }

@@ -6,40 +6,32 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 02:48:42 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 03:32:25 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:09:37 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fill_map(char *argv, t_fdf *fdf)
+char	*rem_bl2(char *str)
 {
-	int		*g;
-	char	***gstr;
+	int		i;
+	char	*new;
 
-	gstr = dim_map(argv, fdf);
-	g = (int *)malloc(3 * sizeof(int));
-	g[0] = -1;
-	g[2] = 0;
-	while (++g[0] < fdf->arr->nl)
+	i = 0;
+	new = NULL;
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	if (str[i] == '\n' && str[i + 1] == '\0')
 	{
-		g[1] = -1;
-		while (++g[1] < fdf->arr->nc)
-		{
-			gstr = rem_bl(gstr, fdf->arr->nl);
-			fdf->arr->ps[g[2]] = (t_p *)malloc(sizeof(t_p));
-			if (!(fdf->arr->ps[g[2]]))
-				error_handler(0);
-			fdf->arr->ps[g[2]]->x = g[1];
-			fdf->arr->ps[g[2]]->y = g[0];
-			if (check_coma(gstr[g[0]][g[1]]) == 1)
-				fill_coord_color(fdf, gstr[g[0]][g[1]], g[2]);
-			else
-				fill_params(fdf, g, gstr);
-			g[2]++;
-		}
+		new = (char *)malloc((i + 1) * sizeof(char));
+		if (!new)
+			error_handler(0);
+		i = -1;
+		while (str[++i] != '\n')
+			new[i] = str[i];
+		new[i] = '\0';
 	}
-	print_fdf(fdf);
+	return (new);
 }
 
 int	valid_map_aux(int *graph, char *aux)
@@ -54,8 +46,8 @@ int	valid_map_aux(int *graph, char *aux)
 		graph[1] = -1;
 		aux = get_next_line(graph[3]);
 		if (aux == NULL)
-			return (-1);
-		gstr[++graph[0]] = ft_split(aux, ' ');
+			break ;
+		gstr[++graph[0]] = ft_split(rem_bl2(aux), ' ');
 		while (gstr[graph[0]][++graph[1]] != 0)
 			graph[2]++;
 		if (graph[6] == 1 && graph[5] != graph[1])
@@ -85,4 +77,19 @@ int	valid_map(char *argv)
 		error_handler(0);
 	close(graph[3]);
 	return (isvalid);
+}
+
+void	print_fdf(t_fdf *fdf)
+{
+	int	i;
+
+	i = 0;
+	while (i < fdf->arr->n)
+	{
+		printf("i: %d |x: %d  |y: %d |z: %d |", i, fdf->arr->ps[i]->x, \
+				fdf->arr->ps[i]->y, fdf->arr->ps[i]->z);
+		printf("if: %d |max: %d\n", fdf->arr->ps[i]->is_f, \
+				fdf->arr->ps[i]->xmax);
+		i++;
+	}
 }
