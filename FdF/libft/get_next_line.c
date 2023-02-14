@@ -21,7 +21,7 @@ char	*get_str_from_fd(int fd, char *str)
 	if (buf_str == NULL)
 		return (NULL);
 	nbr = 1;
-	while (!ft_strchr(str, '\n') && nbr != 0)
+	while (!ft_strc(str, '\n') && nbr != 0)
 	{
 		nbr = read(fd, buf_str, BUFFER_SIZE);
 		if (nbr < 0)
@@ -30,7 +30,7 @@ char	*get_str_from_fd(int fd, char *str)
 			return (NULL);
 		}
 		buf_str[nbr] = '\0';
-		str = ft_strjoin(str, buf_str);
+		str = ft_strjn(str, buf_str);
 	}
 	free(buf_str);
 	return (str);
@@ -71,7 +71,7 @@ char	*ft_trim_str(char *str)
 	char	*str_new;
 
 	i = 0;
-	len = ft_strlen2(str);
+	len = ft_strl(str);
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
 	if (str[i] == '\0')

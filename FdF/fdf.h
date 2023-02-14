@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 21:13:43 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/14 03:32:54 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,18 @@ typedef struct s_fdf
 
 int		check_file(char *file_name);
 void	error_handler(int type);
-char	*rem_line_feed(char *str);
 int		check_coma(char *str);
 int		hex_atoi(char *str);
-void	dim_map(char *argv, t_fdf *fdf);
+int		count_l(char *argv);
+void	init_fdf(t_fdf *fdf, int i, int j, int k);
+char	***dim_map(char *argv, t_fdf *fdf);
 void	fill_coord_color(t_fdf *fdf, char *str, int k);
-void	fill_map_2(char *aux, t_fdf *fdf, int k, int i);
+char	***rem_bl(char ***gstr, int nl);
+void	print_fdf(t_fdf *fdf);
+void	fill_params(t_fdf *fdf, int *g, char ***gstr);
 void	fill_map(char *argv, t_fdf *fdf);
-int		valid_map(t_fdf fdf);
+int		valid_map_aux(int *graph, char *aux);
+int		valid_map(char *argv);
 void	print_map(t_fdf fdf);
 t_win	*create_window(int h, int w, char *str);
 t_img	*create_image(int h, int w, t_win *window);

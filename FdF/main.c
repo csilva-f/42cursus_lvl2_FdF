@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 21:13:52 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/14 03:31:23 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	error_handler(int type)
 	else if (type == 3)
 		ft_printf("There was an error while reading from the file.");
 	else if (type == 4)
-		ft_printf("The map introduced is not valid.");
+		ft_printf("The map indicated is not valid.");
 	else
 		ft_printf("There was an unexpected error while running the code.");
 	ft_printf("\n");
@@ -42,13 +42,12 @@ int	main(int argc, char **argv)
 			error_handler(2);
 			return (0);
 		}
-		fill_map(argv[1], &fdf);
-		if (valid_map(fdf) == 0)
+		if (valid_map(argv[1]) == 0)
 		{
 			error_handler(4);
 			return (0);
 		}
-		print_map(fdf);
+		fill_map(argv[1], &fdf);
 		win = create_window(W_HEIGHT, W_WIDTH, "FdF");
 		if (!win)
 			return (1);

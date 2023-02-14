@@ -6,11 +6,42 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:43:34 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 21:07:22 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/14 02:56:13 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
+
+char	***dim_map(char *argv, t_fdf *fdf)
+{
+	char	*aux;
+	char	***gstr;
+	int		*graph;
+
+	graph = (int *)malloc(4 * sizeof(int));
+	graph[0] = count_l(argv);
+	gstr = (char ***)malloc(sizeof(char **) * graph[0]);
+	if (!gstr)
+		error_handler(0);
+	graph[0] = -1;
+	graph[3] = open(argv, O_RDONLY);
+	while (1)
+	{
+		graph[1] = -1;
+		aux = get_next_line(graph[3]);
+		if (aux == NULL)
+			break ;
+		gstr[++graph[0]] = ft_split(aux, ' ');
+		while (gstr[graph[0]][++graph[1]] != 0)
+			graph[2]++;
+		free(aux);
+	}
+	free(aux);
+	init_fdf(fdf, ++graph[0], (graph[2] / graph[0]), graph[2]);
+	close(graph[3]);
+	return (gstr);
+}
 
 void	fill_coord_color(t_fdf *fdf, char *str, int k)
 {
@@ -27,82 +58,61 @@ void	fill_coord_color(t_fdf *fdf, char *str, int k)
 	{
 		fdf->arr->ps[k]->z = ft_atoi((const char *)s[0]);
 		fdf->arr->ps[k]->color = hex_atoi(s[1]);
+		fdf->arr->ps[k]->is_f = 0;
+		fdf->arr->ps[k]->xmax = 0;
 	}
 }
 
-void	fill_map_2(char *aux, t_fdf *fdf, int k, int i)
-{
-	int		j;
-	char	**strs;
-
-	j = 0;
-	strs = ft_split((const char *)aux, ' ');
-	while (strs[j] != 0)
-	{
-		fdf->arr->ps[k]->x = j;
-		fdf->arr->ps[k]->y = i;
-		if (check_coma(strs[j]) == 1)
-			fill_coord_color(fdf, strs[j], k);
-		else
-		{
-			fdf->arr->ps[k]->z = ft_atoi(strs[j]);
-			fdf->arr->ps[k]->color = 0;
-			fdf->arr->ps[k]->is_f = 0;
-			fdf->arr->ps[k]->xmax = 0;
-		}
-		j++;
-	}
-	fdf->arr->ps[k]->is_f = 1;
-	fdf->arr->ps[k]->xmax = j;
-}
-
-void	fill_map(char *argv, t_fdf *fdf)
-{
-	char	*aux;
-	int		i;
-	int		k;
-	int		fd;
-
-	i = 0;
-	k = 0;
-	dim_map(argv, fdf);
-	fd = open(argv, O_RDONLY);
-	aux = get_next_line(fd);
-	if (aux == NULL)
-		error_handler(3);
-	else
-		aux = rem_line_feed(aux);
-	while (aux != NULL)
-	{
-		fill_map_2(aux, fdf, k, i);
-		free(aux);
-		aux = get_next_line(fd);
-		i++;
-		k++;
-	}
-	fdf->arr->nl = i;
-	close(fd);
-}
-
-int	valid_map(t_fdf fdf)
+char	***rem_bl(char ***gstr, int nl)
 {
 	int	i;
-	int	aux;
-	int	flag;
+	int	j;
+	int	k;
+
+	i = -1;
+	while (++i < nl)
+	{
+		j = -1;
+		while (gstr[i][++j] != 0)
+		{
+			if (gstr[i][j + 1] == 0)
+			{
+				k = ft_strlen(gstr[i][j]) - 1;
+				if (gstr[i][j][k] == '\n')
+					gstr[i][j] = ft_split(gstr[i][j], '\n')[0];
+			}
+		}
+	}
+	return (gstr);
+}
+
+void	print_fdf(t_fdf *fdf)
+{
+	int	i;
 
 	i = 0;
-	flag = 0;
-	while (i < fdf.arr->n)
+	while (i < fdf->arr->n)
 	{
-		if (fdf.arr->ps[i]->is_f == 1)
-		{
-			if (flag == 1 && aux != fdf.arr->ps[i]->xmax)
-				return (0);
-			else if (flag == 0)
-				aux = fdf.arr->ps[i]->xmax;
-			flag = 1;
-		}
+		printf("i: %d |x: %d  |y: %d |z: %d |", i, fdf->arr->ps[i]->x, \
+				fdf->arr->ps[i]->y, fdf->arr->ps[i]->z);
+		printf("if: %d |max: %d\n", fdf->arr->ps[i]->is_f, \
+				fdf->arr->ps[i]->xmax);
 		i++;
 	}
-	return (1);
+}
+
+void	fill_params(t_fdf *fdf, int *g, char ***gstr)
+{
+	fdf->arr->ps[g[2]]->z = ft_atoi(gstr[g[0]][g[1]]);
+	fdf->arr->ps[g[2]]->color = 0;
+	if (g[1] == (fdf->arr->nc - 1))
+	{
+		fdf->arr->ps[g[2]]->is_f = 1;
+		fdf->arr->ps[g[2]]->xmax = g[1];
+	}
+	else
+	{
+		fdf->arr->ps[g[2]]->is_f = 0;
+		fdf->arr->ps[g[2]]->xmax = 0;
+	}
 }
