@@ -36,7 +36,7 @@ char	*get_str_from_fd(int fd, char *str)
 	return (str);
 }
 
-char	*ft_trim_line(char	*str)
+char	*ft_trim_line(char *str)
 {
 	char	*line;
 	size_t	i;

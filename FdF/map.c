@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 20:30:21 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/18 12:02:40 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ int	count_l(char *argv)
 		i++;
 		if (aux == NULL)
 			break ;
+		free(aux);
 	}
+	free(aux);
 	close(fd);
 	return (i);
 }

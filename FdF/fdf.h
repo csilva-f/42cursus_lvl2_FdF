@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 22:43:20 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/18 14:26:30 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 
-# define ESC 53
-# define ENTER 36
-# define HELP 4
-# define COLOR 8
+# define ESC 65307
+# define ENTER 65293
+# define HELP 104
+# define COLOR 99
 
 typedef struct s_win
 {
@@ -68,6 +68,7 @@ typedef struct s_arr
 
 typedef struct s_fdf
 {
+	void	*mlx_ptr;
 	t_win	*win;
 	t_img	*img;
 	t_arr	*arr;
@@ -86,10 +87,10 @@ void	print_fdf(t_fdf *fdf);
 void	fill_params(t_fdf *fdf, int *g, char ***gstr);
 void	fill_map(char *argv, t_fdf *fdf);
 char	*rem_bl2(char *str);
-int		valid_map_aux(int *graph, char *aux);
+int		valid_map_aux(int *graph);
 int		valid_map(char *argv);
 void	print_map(t_fdf fdf);
-t_win	*create_window(int h, int w, char *str);
+t_win	*create_window(int h, int w, char *str, void *mlx_ptr);
 t_img	*create_image(int h, int w, t_win *window);
 
 #endif

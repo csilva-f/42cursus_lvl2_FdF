@@ -6,12 +6,13 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 22:43:04 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/18 14:25:32 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "minilibx-linux/mlx.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 void	error_handler(int type)
@@ -32,29 +33,49 @@ void	error_handler(int type)
 
 int	totalfree(t_fdf *fdf)
 {
-	mlx_destroy_image(fdf->win->mlx_ptr, fdf->img->img_ptr);
-	mlx_destroy_window(fdf->win->mlx_ptr, fdf->win->win_ptr);
-	mlx_destroy_display(fdf->win->mlx_ptr);
-	free(fdf->win->mlx_ptr);
+	int	i;
+
+	i = -1;
+	while (++i < fdf->arr->n)
+		free(fdf->arr->ps[i]);
+	free(fdf->arr->ps);
+	free(fdf->arr);
+	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
+	mlx_destroy_window(fdf->mlx_ptr, fdf->win->win_ptr);
+	mlx_destroy_display(fdf->mlx_ptr);
+	free(fdf->mlx_ptr);
 	exit(0);
 }
 
 int	close_fdf(t_fdf *fdf)
 {
 	totalfree(fdf);
-	exit(EXIT_SUCCESS);
-	return (EXIT_SUCCESS);
-}
-
-/*int	mlx_key_hook(void *win_ptr, int (*funct_ptr)(), void *param);
-{
-	if (keycode == ESC)
-		close_game(fractal);
-	printf("d\n", keycode);
+	exit(1);
+	//exit(EXIT_SUCCESS);
+	//return (EXIT_SUCCESS);
 	return (0);
 }
 
-int	key*/
+int	key_hook(int keycode, t_fdf *fdf)
+{
+	if (keycode == ESC)
+		close_fdf(fdf);
+	return (0);
+}
+
+int	close_win_x(t_fdf *fdf)
+{
+	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
+	mlx_destroy_window(fdf->mlx_ptr, fdf->win->win_ptr);
+	close_fdf(fdf);
+	//exit (1);
+	return (0);
+}
+
+void	ft_hooks(t_fdf *fdf)
+{
+	mlx_hook(fdf->win->win_ptr, 17, 1L << 17, close_win_x, fdf);
+}
 
 int	main(int argc, char **argv)
 {
@@ -73,12 +94,15 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		fill_map(argv[1], &fdf);
-		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF");
+		fdf.mlx_ptr = mlx_init();
+		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF", fdf.mlx_ptr);
 		if (!(fdf.win))
 			return (1);
 		fdf.img = create_image(W_HEIGHT, W_WIDTH, fdf.win);
 		if (!(fdf.img))
 			return (1);
+		mlx_key_hook(fdf.win->win_ptr, key_hook, &fdf);
+		ft_hooks(&fdf);
 		mlx_put_image_to_window(fdf.win->mlx_ptr, fdf.win->win_ptr, fdf.img->img_ptr, 0, 0);
 		mlx_loop(fdf.win->mlx_ptr);
 	}

@@ -6,19 +6,17 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:37:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/12 12:41:45 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/18 09:08:54 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_win	*create_window(int h, int w, char *str)
+t_win	*create_window(int h, int w, char *str, void *mlx_ptr)
 {
-	void	*mlx_ptr;
 	void	*win_ptr;
 	t_win	*wind;
 
-	mlx_ptr = mlx_init();
 	if (!mlx_ptr)
 		return (NULL);
 	win_ptr = mlx_new_window(mlx_ptr, w, h, str);

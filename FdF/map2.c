@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:43:34 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/14 20:39:50 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/18 13:32:43 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ char	***dim_map(char *argv, t_fdf *fdf, int nl)
 		gstr[++graph[0]] = ft_split(aux, ' ');
 		while (gstr[graph[0]][++graph[1]] != 0)
 			graph[2]++;
+		printf("%s\n", aux);
 		free(aux);
 	}
 	free(aux);
 	init_fdf(fdf, ++graph[0], (graph[2] / graph[0]), graph[2]);
 	close(graph[3]);
+	free(graph);
 	return (gstr);
 }
 
@@ -59,6 +61,10 @@ void	fill_coord_color(t_fdf *fdf, char *str, int k)
 		fdf->arr->ps[k]->is_f = 0;
 		fdf->arr->ps[k]->xmax = 0;
 	}
+	i = -1;
+	while (s[++i] != 0)
+		free(s[i]);
+	free(s);
 }
 
 char	***rem_bl(char ***gstr, int nl)
@@ -106,6 +112,7 @@ void	fill_map(char *argv, t_fdf *fdf)
 	char	***gstr;
 
 	gstr = dim_map(argv, fdf, count_l(argv));
+	printf("n: %d |nl: %d| nc: %d\n", fdf->arr->n, fdf->arr->nl, fdf->arr->nc);
 	g = (int *)malloc(3 * sizeof(int));
 	g[0] = -1;
 	g[2] = 0;
@@ -127,6 +134,15 @@ void	fill_map(char *argv, t_fdf *fdf)
 			g[2]++;
 		}
 	}
-	//tirar isto daqui mais tarde
+	g[0] = -1;
+	while (++g[0] < fdf->arr->nl)
+	{
+		g[1] = -1;
+		while (gstr[g[0]][++g[1]] != 0)
+			free(gstr[g[0]][g[1]]);
+		free(gstr[g[0]]);
+	}
+	free(gstr);
+	free(g);
 	print_fdf(fdf);
 }
