@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/18 14:26:30 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:17:58 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@
 # define HELP 104
 # define COLOR 99
 
+# define S_FDF 55
+# define S_PYRAM 15
+
 typedef struct s_win
 {
-	void	*mlx_ptr;
 	void	*win_ptr;
 	int		h;
 	int		w;
@@ -50,12 +52,12 @@ typedef struct s_img
 
 typedef struct s_p
 {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
-	int	is_f;
-	int	xmax;
+	float	x;
+	float	y;
+	int		z;
+	int		color;
+	int		is_f;
+	int		xmax;
 }		t_p;
 
 typedef struct s_arr
@@ -72,6 +74,7 @@ typedef struct s_fdf
 	t_win	*win;
 	t_img	*img;
 	t_arr	*arr;
+	float	s;
 }		t_fdf;
 
 int		check_file(char *file_name);
@@ -83,14 +86,19 @@ void	init_fdf(t_fdf *fdf, int i, int j, int k);
 char	***dim_map(char *argv, t_fdf *fdf, int nl);
 void	fill_coord_color(t_fdf *fdf, char *str, int k);
 char	***rem_bl(char ***gstr, int nl);
-void	print_fdf(t_fdf *fdf);
 void	fill_params(t_fdf *fdf, int *g, char ***gstr);
 void	fill_map(char *argv, t_fdf *fdf);
 char	*rem_bl2(char *str);
 int		valid_map_aux(int *graph);
 int		valid_map(char *argv);
-void	print_map(t_fdf fdf);
+void	find_scale(t_fdf *fdf);
+void	center_lines(t_fdf *fdf, int i);
+void	center_map(t_fdf *fdf);
+void	scale_map(t_fdf *fdf);
+void	center_map_win(t_fdf *fdf);
+void	print_fdf(t_fdf *fdf);
 t_win	*create_window(int h, int w, char *str, void *mlx_ptr);
-t_img	*create_image(int h, int w, t_win *window);
+t_img	*create_image(int h, int w, t_win *window, void *mlx_ptr);
+void	fdf_setup(t_fdf *fdf);
 
 #endif

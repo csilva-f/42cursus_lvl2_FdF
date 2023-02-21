@@ -1,16 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map3.c                                             :+:      :+:    :+:   */
+/*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 02:48:42 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/18 12:34:59 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:13:14 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int	check_file(char *file_name)
+{
+	int	i;
+	int	c;
+
+	i = ft_strlen(file_name) - 1;
+	c = -1;
+	while (i > 0 && file_name[i] != '.')
+		i--;
+	if (file_name[i] == '.')
+	{
+		i++;
+		c = ft_strncmp(&file_name[i], "fdf", 3);
+	}
+	if (c == 0)
+		return (1);
+	return (0);
+}
 
 char	*rem_bl2(char *str)
 {
@@ -90,19 +109,4 @@ int	valid_map(char *argv)
 	close(graph[2]);
 	free(graph);
 	return (isvalid);
-}
-
-void	print_fdf(t_fdf *fdf)
-{
-	int	i;
-
-	i = 0;
-	while (i < fdf->arr->n)
-	{
-		printf("i: %d |x: %d  |y: %d |z: %d |", i, fdf->arr->ps[i]->x, \
-				fdf->arr->ps[i]->y, fdf->arr->ps[i]->z);
-		printf("if: %d |max: %d |color: %i\n", fdf->arr->ps[i]->is_f, \
-				fdf->arr->ps[i]->xmax, fdf->arr->ps[i]->color);
-		i++;
-	}
 }

@@ -6,42 +6,11 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:43:34 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/18 13:32:43 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:46:20 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-char	***dim_map(char *argv, t_fdf *fdf, int nl)
-{
-	char	*aux;
-	char	***gstr;
-	int		*graph;
-
-	graph = (int *)malloc(4 * sizeof(int));
-	gstr = (char ***)malloc(sizeof(char **) * nl);
-	if (!gstr)
-		error_handler(0);
-	graph[0] = -1;
-	graph[3] = open(argv, O_RDONLY);
-	while (1)
-	{
-		graph[1] = -1;
-		aux = get_next_line(graph[3]);
-		if (aux == NULL)
-			break ;
-		gstr[++graph[0]] = ft_split(aux, ' ');
-		while (gstr[graph[0]][++graph[1]] != 0)
-			graph[2]++;
-		printf("%s\n", aux);
-		free(aux);
-	}
-	free(aux);
-	init_fdf(fdf, ++graph[0], (graph[2] / graph[0]), graph[2]);
-	close(graph[3]);
-	free(graph);
-	return (gstr);
-}
 
 void	fill_coord_color(t_fdf *fdf, char *str, int k)
 {
@@ -144,5 +113,4 @@ void	fill_map(char *argv, t_fdf *fdf)
 	}
 	free(gstr);
 	free(g);
-	print_fdf(fdf);
 }

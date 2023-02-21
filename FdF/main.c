@@ -6,14 +6,12 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/18 14:25:32 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:17:22 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "minilibx-linux/mlx.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 void	error_handler(int type)
 {
@@ -72,11 +70,6 @@ int	close_win_x(t_fdf *fdf)
 	return (0);
 }
 
-void	ft_hooks(t_fdf *fdf)
-{
-	mlx_hook(fdf->win->win_ptr, 17, 1L << 17, close_win_x, fdf);
-}
-
 int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
@@ -94,17 +87,19 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		fill_map(argv[1], &fdf);
+		printf("2\n");
+		center_map_win(&fdf);
 		fdf.mlx_ptr = mlx_init();
 		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF", fdf.mlx_ptr);
 		if (!(fdf.win))
 			return (1);
-		fdf.img = create_image(W_HEIGHT, W_WIDTH, fdf.win);
+		fdf.img = create_image(W_HEIGHT, W_WIDTH, fdf.win, fdf.mlx_ptr);
 		if (!(fdf.img))
 			return (1);
+		fdf_setup(&fdf);
 		mlx_key_hook(fdf.win->win_ptr, key_hook, &fdf);
-		ft_hooks(&fdf);
-		mlx_put_image_to_window(fdf.win->mlx_ptr, fdf.win->win_ptr, fdf.img->img_ptr, 0, 0);
-		mlx_loop(fdf.win->mlx_ptr);
+		mlx_hook(fdf.win->win_ptr, 17, 1L << 17, close_win_x, &fdf);
+		mlx_loop(fdf.mlx_ptr);
 	}
 	else
 		error_handler(1);
