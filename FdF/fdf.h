@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/21 19:17:58 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:21:40 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define W_HEIGHT	1080
 # define W_WIDTH	1920
+# define PI		3.141592654
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -27,9 +28,6 @@
 # define ENTER 65293
 # define HELP 104
 # define COLOR 99
-
-# define S_FDF 55
-# define S_PYRAM 15
 
 typedef struct s_win
 {
@@ -96,6 +94,7 @@ void	center_lines(t_fdf *fdf, int i);
 void	center_map(t_fdf *fdf);
 void	scale_map(t_fdf *fdf);
 void	center_map_win(t_fdf *fdf);
+void	rotate_in_x(t_fdf *fdf);
 void	print_fdf(t_fdf *fdf);
 t_win	*create_window(int h, int w, char *str, void *mlx_ptr);
 t_img	*create_image(int h, int w, t_win *window, void *mlx_ptr);

@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/21 19:17:22 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:30:37 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,21 @@ int	close_win_x(t_fdf *fdf)
 	return (0);
 }
 
+void	print_fdf(t_fdf *fdf)
+{
+	int	i;
+
+	i = 0;
+	while (i < fdf->arr->n)
+	{
+		printf("i: %d |x: %f  |y: %f |z: %d |", i, fdf->arr->ps[i]->x, \
+				fdf->arr->ps[i]->y, fdf->arr->ps[i]->z);
+		printf("if: %d |max: %d |color: %i\n", fdf->arr->ps[i]->is_f, \
+				fdf->arr->ps[i]->xmax, fdf->arr->ps[i]->color);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
@@ -87,8 +102,9 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		fill_map(argv[1], &fdf);
-		printf("2\n");
 		center_map_win(&fdf);
+		//rotate_in_x(&fdf);
+		print_fdf(&fdf);
 		fdf.mlx_ptr = mlx_init();
 		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF", fdf.mlx_ptr);
 		if (!(fdf.win))

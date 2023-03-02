@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:43:34 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/21 19:46:20 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:18:37 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	fill_map(char *argv, t_fdf *fdf)
 	char	***gstr;
 
 	gstr = dim_map(argv, fdf, count_l(argv));
-	printf("n: %d |nl: %d| nc: %d\n", fdf->arr->n, fdf->arr->nl, fdf->arr->nc);
 	g = (int *)malloc(3 * sizeof(int));
 	g[0] = -1;
 	g[2] = 0;

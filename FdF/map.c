@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/21 19:44:44 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:19:00 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,7 @@ char	***dim_map(char *argv, t_fdf *fdf, int nl)
 			break ;
 		gstr[++graph[0]] = ft_split(rem_bl2(aux), ' ');
 		while (gstr[graph[0]][++graph[1]] != 0)
-		{	
 			graph[2]++;
-			printf("k: %d | ", graph[2]);
-			printf("%s\n", gstr[graph[0]][graph[1]]);
-		}
 		free(aux);
 	}
 	free(aux);

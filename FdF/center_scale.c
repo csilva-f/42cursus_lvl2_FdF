@@ -6,34 +6,28 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 18:30:47 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/02/21 20:07:40 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:30:27 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <math.h>
 
 void	find_scale(t_fdf *fdf)
 {
-	int		dh;
-	int		dw;
-	//int		n;
-	float	aux;
+	float	h_real;
+	float	h_scale;
+	float	a;
+	float	b;
 
-	dh = ft_abs(W_HEIGHT - 1080);
-	dw = ft_abs(W_WIDTH - 1920);
-	//if (fdf->arr->nc > fdf->arr->nl)
-	//	n = (10 * 45) / fdf->arr->nc;
-	//else
-	//	n = (10 * 45) / fdf->arr->nl;
-	fdf->s = 0.05;//n;
-	if (dh != 0 || dw != 0)
-	{
-		if (dh > dw)
-			aux = (W_HEIGHT * 55.0) / 1080;
-		else
-			aux = (W_WIDTH * 55.0) / 1920;
-		fdf->s = aux;
-	}
+	a = fdf->arr->ps[fdf->arr->n - 1]->x - fdf->arr->ps[0]->x;
+	b = fdf->arr->ps[fdf->arr->n - 1]->y - fdf->arr->ps[0]->y;
+	h_real = sqrtf(powf(a, 2) + pow(b, 2));
+	if (W_HEIGHT > W_WIDTH)
+		h_scale = 0.7 * W_WIDTH;
+	else
+		h_scale = 0.7 * W_HEIGHT;
+	fdf->s = h_scale / h_real;
 }
 
 void	center_lines(t_fdf *fdf, int i)
@@ -102,10 +96,29 @@ void	center_map_win(t_fdf *fdf)
 {
 	int		i;
 	float	aux;
+	float	aux_x;
+	float	aux_y;
+	float	aux_z;
 
-	i = -1;
 	center_map(fdf);
 	scale_map(fdf);
+	i = -1;
+	while (++i < fdf->arr->n)
+	{
+		aux_x = fdf->arr->ps[i]->x;
+		aux_y = fdf->arr->ps[i]->y;
+		fdf->arr->ps[i]->x = (aux_x * cos(PI / 4)) - (aux_y * sin(PI / 4));
+		fdf->arr->ps[i]->y = (aux_x * sin(PI / 4)) + (aux_y * cos(PI / 4));
+	}
+	i = -1;
+	while (++i < fdf->arr->n)
+	{
+		aux_y = fdf->arr->ps[i]->y;
+		aux_z = fdf->arr->ps[i]->z;
+		fdf->arr->ps[i]->y = (aux_y * cos(atan(sqrt(2)))) - (aux_z * sin(atan(sqrt(2))));
+		fdf->arr->ps[i]->z = (aux_y * sin(atan(sqrt(2)))) + (aux_z * cos(atan(sqrt(2))));
+	}
+	i = -1;
 	while (++i < fdf->arr->n)
 	{
 		aux = fdf->arr->ps[i]->x;
@@ -113,5 +126,15 @@ void	center_map_win(t_fdf *fdf)
 		aux = fdf->arr->ps[i]->y;
 		fdf->arr->ps[i]->y = aux + (W_HEIGHT / 2.0);
 	}
-	print_fdf(fdf);
+	//print_fdf(fdf);
 }
+
+/*void	rotate_in_x(t_fdf *fdf)
+{
+	int		i;
+	float	aux_y;
+	float	aux_z;
+
+	
+	print_fdf(fdf);
+}*/
