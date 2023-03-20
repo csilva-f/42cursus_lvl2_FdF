@@ -6,7 +6,7 @@
 #    By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 19:02:20 by csilva-f          #+#    #+#              #
-#    Updated: 2023/03/02 00:32:40 by csilva-f         ###   ########.fr        #
+#    Updated: 2023/03/19 22:20:03 by csilva-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = clang
 CFLAGS = -Wall -Werror -Wextra
 LFLAGS = -L ./minilibx-linux -lmlx -Ilmlx -lXext -lX11
 
-SRCS = main.c valid_map.c map2.c map.c canvas.c center_scale.c printfdf.c
+SRCS = main.c valid_map.c map2.c map.c canvas.c center_scale.c bresenham.c
 
 OBJS = $(SRCS:.c=.o)
 

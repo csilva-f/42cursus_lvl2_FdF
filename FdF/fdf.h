@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/02 00:21:40 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 22:45:04 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_fdf
 	t_img	*img;
 	t_arr	*arr;
 	float	s;
+	int		s_z;
 }		t_fdf;
 
 int		check_file(char *file_name);
@@ -94,10 +95,15 @@ void	center_lines(t_fdf *fdf, int i);
 void	center_map(t_fdf *fdf);
 void	scale_map(t_fdf *fdf);
 void	center_map_win(t_fdf *fdf);
-void	rotate_in_x(t_fdf *fdf);
 void	print_fdf(t_fdf *fdf);
 t_win	*create_window(int h, int w, char *str, void *mlx_ptr);
 t_img	*create_image(int h, int w, t_win *window, void *mlx_ptr);
+void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
+float	ft_abs_float(float c);
+void	line_low(t_fdf *fdf, t_p *p0, t_p *p1);
+void	line_high(t_fdf *fdf, t_p *p0, t_p *p1);
+void	line(t_fdf *fdf, t_p *p0, t_p *p1);
+void	draw_lines(t_fdf *fdf);
 void	fdf_setup(t_fdf *fdf);
 
 #endif

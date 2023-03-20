@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/02 00:30:37 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:27:34 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ int	main(int argc, char **argv)
 		}
 		fill_map(argv[1], &fdf);
 		center_map_win(&fdf);
-		//rotate_in_x(&fdf);
-		print_fdf(&fdf);
 		fdf.mlx_ptr = mlx_init();
 		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF", fdf.mlx_ptr);
 		if (!(fdf.win))

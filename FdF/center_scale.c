@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 18:30:47 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/02 00:30:27 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:34:44 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,50 @@ void	find_scale(t_fdf *fdf)
 
 	a = fdf->arr->ps[fdf->arr->n - 1]->x - fdf->arr->ps[0]->x;
 	b = fdf->arr->ps[fdf->arr->n - 1]->y - fdf->arr->ps[0]->y;
-	h_real = sqrtf(powf(a, 2) + pow(b, 2));
+	h_real = sqrtf(powf(a, 2) + powf(b, 2));
 	if (W_HEIGHT > W_WIDTH)
 		h_scale = 0.7 * W_WIDTH;
 	else
 		h_scale = 0.7 * W_HEIGHT;
 	fdf->s = h_scale / h_real;
+}
+
+int	max_z(t_fdf *fdf)
+{
+	int	i;
+	int	aux;
+
+	i = 0;
+	while (i < fdf->arr->n)
+	{
+		if (i == 0 || aux < fdf->arr->ps[i]->z)
+			aux = fdf->arr->ps[i]->z;
+		i++;
+	}
+	return (aux);
+}
+
+int	min_z(t_fdf *fdf)
+{
+	int	i;
+	int	aux;
+
+	i = 0;
+	while (i < fdf->arr->n)
+	{
+		if (i == 0 || aux > fdf->arr->ps[i]->z)
+			aux = fdf->arr->ps[i]->z;
+		i++;
+	}
+	return (aux);
+}
+
+void	find_scale_z(t_fdf *fdf)
+{
+	int	delta;
+
+	delta = max_z(fdf) - min_z(fdf);
+	fdf->s_z = 250 / delta;
 }
 
 void	center_lines(t_fdf *fdf, int i)
@@ -83,12 +121,16 @@ void	scale_map(t_fdf *fdf)
 
 	i = -1;
 	find_scale(fdf);
+	printf("scale: %f\n", fdf->s);
+	//find_scale_z(fdf);
 	while (++i < fdf->arr->n)
 	{
 		aux = fdf->arr->ps[i]->x;
 		fdf->arr->ps[i]->x = aux * fdf->s;
 		aux = fdf->arr->ps[i]->y;
 		fdf->arr->ps[i]->y = aux * fdf->s;
+		//aux = fdf->arr->ps[i]->z;
+		//fdf->arr->ps[i]->z = aux * 2;//(fdf->s / 10);
 	}
 }
 
@@ -126,15 +168,4 @@ void	center_map_win(t_fdf *fdf)
 		aux = fdf->arr->ps[i]->y;
 		fdf->arr->ps[i]->y = aux + (W_HEIGHT / 2.0);
 	}
-	//print_fdf(fdf);
 }
-
-/*void	rotate_in_x(t_fdf *fdf)
-{
-	int		i;
-	float	aux_y;
-	float	aux_z;
-
-	
-	print_fdf(fdf);
-}*/
