@@ -6,12 +6,11 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/20 21:27:34 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:15:53 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 void	error_handler(int type)
 {
@@ -39,7 +38,9 @@ int	totalfree(t_fdf *fdf)
 	free(fdf->arr->ps);
 	free(fdf->arr);
 	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
+	free(fdf->img);
 	mlx_destroy_window(fdf->mlx_ptr, fdf->win->win_ptr);
+	free(fdf->win);
 	mlx_destroy_display(fdf->mlx_ptr);
 	free(fdf->mlx_ptr);
 	exit(0);
@@ -49,8 +50,6 @@ int	close_fdf(t_fdf *fdf)
 {
 	totalfree(fdf);
 	exit(1);
-	//exit(EXIT_SUCCESS);
-	//return (EXIT_SUCCESS);
 	return (0);
 }
 
@@ -63,10 +62,7 @@ int	key_hook(int keycode, t_fdf *fdf)
 
 int	close_win_x(t_fdf *fdf)
 {
-	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
-	mlx_destroy_window(fdf->mlx_ptr, fdf->win->win_ptr);
 	close_fdf(fdf);
-	//exit (1);
 	return (0);
 }
 
@@ -101,8 +97,9 @@ int	main(int argc, char **argv)
 			error_handler(4);
 			return (0);
 		}
-		fill_map(argv[1], &fdf);
+		fill_map(argv[1], &fdf, -1);
 		center_map_win(&fdf);
+		print_fdf(&fdf);
 		fdf.mlx_ptr = mlx_init();
 		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF", fdf.mlx_ptr);
 		if (!(fdf.win))

@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/21 00:36:43 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:04:43 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,26 @@ void	init_fdf(t_fdf *fdf, int i, int j, int k);
 char	***dim_map(char *argv, t_fdf *fdf, int nl);
 void	fill_coord_color(t_fdf *fdf, char *str, int k);
 char	***rem_bl(char ***gstr, int nl);
-void	fill_params(t_fdf *fdf, int *g, char ***gstr);
-void	fill_map(char *argv, t_fdf *fdf);
+void	fill_params(t_fdf *fdf, int *g, char ***gstr, int g2);
+void	fill_map_2(t_fdf *fdf, char ***gstr, int *g, int g2);
+void	fill_map(char *argv, t_fdf *fdf, int g2);
 char	*rem_bl2(char *str);
-int		valid_map_aux(int *graph);
+int		valid_map_aux(int fd, int nw, int f, int res);
 int		valid_map(char *argv);
 void	find_scale(t_fdf *fdf);
 void	center_lines(t_fdf *fdf, int i);
 void	center_map(t_fdf *fdf);
 void	scale_map(t_fdf *fdf);
+void	center_map_win_aux(t_fdf *fdf);
 void	center_map_win(t_fdf *fdf);
 void	print_fdf(t_fdf *fdf);
 t_win	*create_window(int h, int w, char *str, void *mlx_ptr);
 t_img	*create_image(int h, int w, t_win *window, void *mlx_ptr);
 void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
 float	ft_abs_float(float c);
-void	line_low(t_fdf *fdf, t_p *p0, t_p *p1);
-void	line_high(t_fdf *fdf, t_p *p0, t_p *p1);
+void	line_low(t_fdf *fdf, t_p *p0, t_p *p1, int color);
 void	line(t_fdf *fdf, t_p *p0, t_p *p1);
+void	draw_lines_2(t_fdf *fdf);
 void	draw_lines(t_fdf *fdf);
 void	fdf_setup(t_fdf *fdf);
 

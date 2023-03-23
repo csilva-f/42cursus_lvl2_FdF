@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:51:28 by csilva-f          #+#    #+#             */
-/*   Updated: 2022/11/08 21:36:10 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:27:01 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,17 @@ static void	ft_str_allocate(const char *s, char **str, char c, int n)
 	}
 }
 
+static void	*ft_del_strs(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		free(str[i++]);
+	free(str);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	int		n;
@@ -95,7 +106,7 @@ char	**ft_split(char const *s, char c)
 	n = ft_n_words(s, c);
 	str = malloc(sizeof(char *) * (n + 1));
 	if (!str)
-		return (NULL);
+		return (ft_del_strs(str));
 	ft_str_create(s, str, c);
 	ft_str_allocate(s, str, c, n);
 	str[n] = 0;

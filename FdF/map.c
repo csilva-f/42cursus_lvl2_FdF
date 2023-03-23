@@ -6,12 +6,11 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/01 20:19:00 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:50:38 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 int	check_coma(char *str)
 {
@@ -98,8 +97,6 @@ char	***dim_map(char *argv, t_fdf *fdf, int nl)
 
 	graph = (int *)malloc(4 * sizeof(int));
 	gstr = (char ***)malloc(sizeof(char **) * nl);
-	if (!gstr)
-		error_handler(0);
 	graph[0] = -1;
 	graph[3] = open(argv, O_RDONLY);
 	graph[2] = 0;
