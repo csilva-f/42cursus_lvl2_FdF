@@ -6,12 +6,11 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/23 23:12:50 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:50:38 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdlib.h>
 
 int	check_coma(char *str)
 {
@@ -79,7 +78,6 @@ int	count_l(char *argv)
 
 void	init_fdf(t_fdf *fdf, int i, int j, int k)
 {
-	fdf->file = (char *)malloc(sizeof(char) * 1000);
 	fdf->arr = (t_arr *)malloc(sizeof(t_arr));
 	if (!(fdf->arr))
 		error_handler(0);
@@ -91,31 +89,31 @@ void	init_fdf(t_fdf *fdf, int i, int j, int k)
 	fdf->arr->nc = j;
 }
 
-char	***dim_map(char *argv, t_fdf *fdf, int nl, int g3)
+char	***dim_map(char *argv, t_fdf *fdf, int nl)
 {
 	char	*aux;
 	char	***gstr;
 	int		*graph;
 
-	graph = (int *)malloc(3 * sizeof(int));
+	graph = (int *)malloc(4 * sizeof(int));
 	gstr = (char ***)malloc(sizeof(char **) * nl);
 	graph[0] = -1;
-	graph[2] = open(argv, O_RDONLY);
+	graph[3] = open(argv, O_RDONLY);
+	graph[2] = 0;
 	while (1)
 	{
 		graph[1] = -1;
-		aux = get_next_line(graph[2]);
+		aux = get_next_line(graph[3]);
 		if (aux == NULL)
 			break ;
 		gstr[++graph[0]] = ft_split(rem_bl2(aux), ' ');
 		while (gstr[graph[0]][++graph[1]] != 0)
-			g3++;
+			graph[2]++;
 		free(aux);
 	}
 	free(aux);
-	init_fdf(fdf, ++graph[0], (g3 / graph[0]), g3);
-	fdf->file = argv;
-	close(graph[2]);
+	init_fdf(fdf, ++graph[0], (graph[2] / graph[0]), graph[2]);
+	close(graph[3]);
 	free(graph);
 	return (gstr);
 }

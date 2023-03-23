@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:21:15 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/23 23:25:11 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/23 02:39:27 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,90 +47,43 @@ void	bres(t_fdf *fdf, t_p *p0, t_p *p1, int color)
 	}
 }
 
-void	bres_2(t_fdf *fdf, t_p *p0, t_p *p1, int color)
-{
-	float	x_st;
-	float	y_st;
-	float	max;
-
-	x_st = p1->x - p0->x;
-	y_st = p1->y - p0->y;
-	max = ft_max_fl(ft_abs_float(x_st), ft_abs_float(y_st));
-	x_st = x_st / max;
-	y_st = y_st / max;
-	while ((int)(p0->x - p1->x) || (int)(p0->y - p1->y))
-	{
-		if (p0->x > 0 && p0->x < W_WIDTH && p0->y > 0 && p0->y < W_HEIGHT)
-			my_mlx_pixel_put(fdf, p0->x, p0->y, color);
-		p0->x += x_st;
-		p0->y += y_st;
-	}
-}
-
-void	drawline(t_fdf *fdf, t_p *p0, t_p *p1, int color)
-{
-    int dx, dy, p, x, y;
- 
-	dx = p1->x - p0->x;
-	dy = p1->y - p0->y;
-	x = p0->x;
-	y = p0->y;
-	p = 2 * dy - dx;
-	while(x < p1->x)
-	{
-		if(p >= 0)
-		{
-			my_mlx_pixel_put(fdf, x, y, color);
-			y = y + 1;
-			p = p + 2 * dy - 2 * dx;
-		}
-		else
-		{
-			my_mlx_pixel_put(fdf, x, y, color);
-			p = p + 2 * dy;
-		}
-		x = x + 1;
-	}
-}
-
-void	draw_lines_2(t_fdf *fdf, int color, int n_color)
+void	draw_lines_2(t_fdf *fdf)
 {
 	int	i;
 	int	nc;
+	int	color;
 
 	i = 0;
+	color = 0xFF0000;
 	nc = fdf->arr->nc;
 	while (i < fdf->arr->n)
 	{
 		if (fdf->arr->ps[i]->color != 0)
 			color = fdf->arr->ps[i]->color;
-		if (n_color != 0)
-			color = n_color;
 		if (fdf->arr->ps[i]->is_f == 0 && (i % nc) != (nc - 1))
 			//line_low(fdf, fdf->arr->ps[i], fdf->arr->ps[i + 1], color);
-			//bres(fdf, fdf->arr->ps[i], fdf->arr->ps[i + 1], color);
-			drawline(fdf, fdf->arr->ps[i], fdf->arr->ps[i + 1], color);
+			bres(fdf, fdf->arr->ps[i], fdf->arr->ps[i + 1], color);
 		i++;
 	}	
 }
 
-void	draw_lines(t_fdf *fdf, int color, int n_color)
+void	draw_lines(t_fdf *fdf)
 {
 	int	i;
 	int	nc;
+	int	color;
 
 	i = -1;
+	color = 0xFF0000;
 	nc = fdf->arr->nc;
 	while (++i < fdf->arr->n)
 	{
 		if (fdf->arr->ps[i]->color != 0)
 			color = fdf->arr->ps[i]->color;
-		if (n_color != 0)
-			color = n_color;
 		if ((i / nc) < (fdf->arr->nl - 1))
 			bres(fdf, fdf->arr->ps[i], fdf->arr->ps[i + nc], color);
 	}
-	draw_lines_2(fdf, color, n_color);
+	draw_lines_2(fdf);
 }
 
 /*void	line_aux(float *dx1, float *dx2, t_p *p0, t_p *p1)

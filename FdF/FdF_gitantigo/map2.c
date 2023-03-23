@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:43:34 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/23 23:07:20 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:08:55 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	fill_map(char *argv, t_fdf *fdf, int g2)
 	int		*g;
 	char	***gstr;
 
-	gstr = dim_map(argv, fdf, count_l(argv), 0);
+	gstr = dim_map(argv, fdf, count_l(argv));
 	g = (int *)malloc(2 * sizeof(int));
 	g[0] = -1;
 	while (++g[0] < fdf->arr->nl)
