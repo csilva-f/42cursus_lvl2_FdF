@@ -6,12 +6,11 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 09:33:39 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/23 23:12:50 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int	check_coma(char *str)
@@ -80,6 +79,7 @@ int	count_l(char *argv)
 
 void	init_fdf(t_fdf *fdf, int i, int j, int k)
 {
+	fdf->file = (char *)malloc(sizeof(char) * 1000);
 	fdf->arr = (t_arr *)malloc(sizeof(t_arr));
 	if (!(fdf->arr))
 		error_handler(0);

@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 19:49:21 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/23 23:39:52 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 09:13:16 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void	move_to_side(t_fdf *fdf, int right)
 		fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
 		fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 				&fdf->img->llen, &fdf->img->endian);
+		//render_fdf(fdf);
 		draw_lines(fdf, YELLOW, 0);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr,
-				fdf->img->img_ptr, 0, 0);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
 	}
 }
 
@@ -153,9 +153,9 @@ void	move_to_updo(t_fdf *fdf, int down)
 		fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
 		fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 				&fdf->img->llen, &fdf->img->endian);
+		//render_fdf(fdf);
 		draw_lines(fdf, YELLOW, 0);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr,
-				fdf->img->img_ptr, 0, 0);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
 	}
 }
 
@@ -170,9 +170,9 @@ void	change_color(t_fdf *fdf, int color)
 		fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
 		fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 				&fdf->img->llen, &fdf->img->endian);
+		//render_fdf(fdf);
 		draw_lines(fdf, YELLOW, color);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr,
-				fdf->img->img_ptr, 0, 0);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
 }
 
 void	gradient(t_fdf *fdf, int color1, int color2)
@@ -192,7 +192,7 @@ void	gradient(t_fdf *fdf, int color1, int color2)
 	fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
 	fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 			&fdf->img->llen, &fdf->img->endian);
+	//render_fdf(fdf);
 	draw_lines(fdf, YELLOW, color1);
-	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr,
-			fdf->img->img_ptr, 0, 0);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:37:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 09:36:44 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 09:12:47 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	fdf_setup(t_fdf *fdf)
 	fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
 	fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 			&fdf->img->llen, &fdf->img->endian);
-	draw_lines(fdf, YELLOW, 0);
-	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, \
-			fdf->img->img_ptr, 0, 0);
-}
-
-//while (++i < fdf->arr->n)
+	//init_menu(fdf);
+	//while (++i < fdf->arr->n)
 	//	my_mlx_pixel_put(fdf, fdf->arr->ps[i]->x, fdf->arr->ps[i]->y, 0xFF0000);
+	draw_lines(fdf, YELLOW, 0);
+	//render_fdf(fdf);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
+}

@@ -6,12 +6,12 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 11:50:18 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 08:28:11 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
 # define W_HEIGHT	1020
 # define W_WIDTH	1980
@@ -103,16 +103,15 @@ typedef struct s_fdf
 
 typedef struct s_bres
 {
-	int	x0;
-	int	y0;
-	int	x1;
-	int	y1;
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	e;
-	int	e2;
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		e;
+	int		x0;
+	int		x1;
+	int		y0;
+	int		y1;
 }		t_bres;
 
 int		check_file(char *file_name);
@@ -137,13 +136,18 @@ void	center_map(t_fdf *fdf);
 void	scale_map(t_fdf *fdf);
 void	center_map_win_aux(t_fdf *fdf);
 void	center_map_win(t_fdf *fdf);
+void	print_fdf(t_fdf *fdf);
 t_win	*create_window(int h, int w, char *str, void *mlx_ptr);
 t_img	*create_image(int h, int w, t_win *window, void *mlx_ptr);
+void	create_menu(t_fdf *fdf);
+void	init_menu(t_fdf *fdf);
 void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
-int		ft_round(float nbr);
-t_bres	init_s(t_p *p0, t_p *p1);
-void	plotline(t_fdf *fdf, t_p *p0, t_p *p1, int color);
+float	ft_abs_float(float c);
+void	line_low(t_fdf *fdf, t_p *p0, t_p *p1, int color);
+void	line(t_fdf *fdf, t_p *p0, t_p *p1);
+void	draw_lines_2(t_fdf *fdf, int color, int n_color);
 void	draw_lines(t_fdf *fdf, int color, int n_color);
+void	render_fdf(t_fdf *fdf);
 void	fdf_setup(t_fdf *fdf);
 void	move_to_side(t_fdf *fdf, int right);
 void	move_to_updo(t_fdf *fdf, int down);
