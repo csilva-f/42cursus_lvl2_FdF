@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:36:44 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/22 23:15:53 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:36:56 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-void	error_handler(int type)
-{
-	ft_printf("Error(%d): ", type);
-	if (type == 1)
-		ft_printf("You must specify 1 (and only 1) argument, the map file.");
-	else if (type == 2)
-		ft_printf("Your map file is not of type .fdf.");
-	else if (type == 3)
-		ft_printf("There was an error while reading from the file.");
-	else if (type == 4)
-		ft_printf("The map indicated is not valid.");
-	else
-		ft_printf("There was an unexpected error while running the code.");
-	ft_printf("\n");
-}
+#include "fdf_bonus.h"
 
 int	totalfree(t_fdf *fdf)
 {
@@ -39,8 +23,6 @@ int	totalfree(t_fdf *fdf)
 	free(fdf->arr);
 	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
 	free(fdf->img);
-	mlx_destroy_window(fdf->mlx_ptr, fdf->win->win_ptr);
-	free(fdf->win);
 	mlx_destroy_display(fdf->mlx_ptr);
 	free(fdf->mlx_ptr);
 	exit(0);
@@ -57,6 +39,37 @@ int	key_hook(int keycode, t_fdf *fdf)
 {
 	if (keycode == ESC)
 		close_fdf(fdf);
+	else if (keycode == HELP)
+		create_menu(fdf);
+	else if (keycode == RESET)
+	{
+		fill_map(fdf->file, fdf, -1);
+		fdf_setup(fdf);
+	}
+	else if (keycode == AR)
+		move_to_side(fdf, 1);
+	else if (keycode == AL)
+		move_to_side(fdf, 0);
+	else if (keycode == AU)
+		move_to_updo(fdf, 0);
+	else if (keycode == AD)
+		move_to_updo(fdf, 1);
+	else if (keycode == Y1)
+		change_color(fdf, YELLOW);
+	else if (keycode == R2)
+		change_color(fdf, RED);
+	else if (keycode == B3)
+		change_color(fdf, BLUE);
+	else if (keycode == P4)
+		change_color(fdf, PINK);
+	else if (keycode == G5)
+		change_color(fdf, GREEN);
+	else if (keycode == G6)
+		gradient(fdf, YELLOW, BLUE);
+	else if (keycode == G7)
+		gradient(fdf, BLUE, RED);
+	else if (keycode == G8)
+		gradient(fdf, 0x000000, YELLOW);
 	return (0);
 }
 
@@ -87,19 +100,11 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		if (check_file(argv[1]) == 0)
-		{
-			error_handler(2);
+		if (checker(argv[1]) == 0)
 			return (0);
-		}
-		if (valid_map(argv[1]) == 0)
-		{
-			error_handler(4);
-			return (0);
-		}
 		fill_map(argv[1], &fdf, -1);
-		center_map_win(&fdf);
-		print_fdf(&fdf);
+		fdf.file = argv[1];
+		//center_map_win(&fdf);
 		fdf.mlx_ptr = mlx_init();
 		fdf.win = create_window(W_HEIGHT, W_WIDTH, "FdF", fdf.mlx_ptr);
 		if (!(fdf.win))
@@ -116,3 +121,5 @@ int	main(int argc, char **argv)
 		error_handler(1);
 	return (0);
 }
+
+//print_fdf(&fdf);

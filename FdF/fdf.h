@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 11:50:18 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:37:08 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct s_arr
 	int	nl;
 	int	nc;
 	int	n;
+	int	zmin;
+	int	zmax;
 }		t_arr;
 
 typedef struct s_fdf
@@ -98,7 +100,7 @@ typedef struct s_fdf
 	t_img	*img;
 	t_arr	*arr;
 	float	s;
-	int		s_z;
+	float	s_z;
 }		t_fdf;
 
 typedef struct s_bres
@@ -135,6 +137,9 @@ void	find_scale(t_fdf *fdf);
 void	center_lines(t_fdf *fdf, int i);
 void	center_map(t_fdf *fdf);
 void	scale_map(t_fdf *fdf);
+void	delta_z(t_fdf *fdf);
+void	get_z_scale(t_fdf *fdf);
+void	apply_z_scale(t_fdf *fdf);
 void	center_map_win_aux(t_fdf *fdf);
 void	center_map_win(t_fdf *fdf);
 t_win	*create_window(int h, int w, char *str, void *mlx_ptr);

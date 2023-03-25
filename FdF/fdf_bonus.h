@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 08:28:11 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:39:39 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct s_arr
 	int	nl;
 	int	nc;
 	int	n;
+	int	zmin;
+	int	zmax;
 }		t_arr;
 
 typedef struct s_fdf
@@ -98,7 +100,8 @@ typedef struct s_fdf
 	t_img	*img;
 	t_arr	*arr;
 	float	s;
-	int		s_z;
+	float	s_z;
+	t_arr	*arr2;
 }		t_fdf;
 
 typedef struct s_bres

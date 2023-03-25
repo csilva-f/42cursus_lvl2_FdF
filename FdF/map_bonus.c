@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:48:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/23 23:12:50 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:27:47 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-#include <stdlib.h>
+#include "fdf_bonus.h"
 
 int	check_coma(char *str)
 {
@@ -79,16 +78,20 @@ int	count_l(char *argv)
 
 void	init_fdf(t_fdf *fdf, int i, int j, int k)
 {
-	fdf->file = (char *)malloc(sizeof(char) * 1000);
 	fdf->arr = (t_arr *)malloc(sizeof(t_arr));
-	if (!(fdf->arr))
+	fdf->arr2 = (t_arr *)malloc(sizeof(t_arr));
+	if (!(fdf->arr) || !(fdf->arr2))
 		error_handler(0);
 	fdf->arr->ps = (t_p **)malloc(sizeof(t_p *) * k);
-	if (!(fdf->arr->ps))
+	fdf->arr2->ps = (t_p **)malloc(sizeof(t_p *) * k);
+	if (!(fdf->arr->ps) || !(fdf->arr2->ps))
 		error_handler(0);
 	fdf->arr->n = k;
 	fdf->arr->nl = i;
 	fdf->arr->nc = j;
+	fdf->arr2->n = k;
+	fdf->arr2->nl = i;
+	fdf->arr2->nc = j;
 }
 
 char	***dim_map(char *argv, t_fdf *fdf, int nl, int g3)

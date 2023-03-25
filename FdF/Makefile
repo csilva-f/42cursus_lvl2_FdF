@@ -6,7 +6,7 @@
 #    By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 19:02:20 by csilva-f          #+#    #+#              #
-#    Updated: 2023/03/25 09:25:35 by csilva-f         ###   ########.fr        #
+#    Updated: 2023/03/25 14:26:59 by csilva-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,7 @@ $(LIBFT):
 $(MINILIBX):
 		${MAKE} -C ./milibx-linux
 
-bonus:
-		$(OBJS_BONUS) $(LIBFT) $(MINILIBX)
+bonus: $(NAME) $(OBJS_BONUS) $(LIBFT) $(MINILIBX)
 		${CC} ${FLAGS} -lm ${OBJS_BONUS} ${LFLAGS} ${LIBFT} ${MINILIBX} -o ${NAME}
 
 clean:	

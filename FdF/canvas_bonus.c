@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   canvas_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:37:51 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 09:12:47 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:42:03 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 t_win	*create_window(int h, int w, char *str, void *mlx_ptr)
 {
@@ -53,7 +53,7 @@ void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	fdf_setup(t_fdf *fdf)
+void	fdf_setup(t_fdf *fdf, int f)
 {
 	int	i;
 
