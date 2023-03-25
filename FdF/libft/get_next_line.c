@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amenses- <amenses-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 19:20:06 by amenses-          #+#    #+#             */
-/*   Updated: 2022/11/24 19:42:28 by amenses-         ###   ########.fr       */
+/*   Created: 2023/03/25 16:45:37 by csilva-f          #+#    #+#             */
+/*   Updated: 2023/03/25 16:45:40 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,34 +49,3 @@ char	*get_next_line(int fd)
 	free(buffer);
 	return (l);
 }
-/* int main(int argc, char **argv)
-{
-	int fd;
-	char *line;
-	size_t i;
-
-	(void)argc;
-	(void)argv;
-	if (argc > 1)
-	{
-		fd = open(argv[1], 00);
-		i = 0;
-		while (i < 4)
-		{
-			line = get_next_line(fd);
-			printf("result(%ld)=.%s.\n", i, line);
-			free(line);
-			i++;
-		}
-		close(fd);
-	}
-	else
-	{
-		fd = 0;
-		i = 0;
-		line = get_next_line(fd);
-		printf("result(%ld)=.%s.", i, line);
-		free(line);
-	}
-	return (0);
-} */
