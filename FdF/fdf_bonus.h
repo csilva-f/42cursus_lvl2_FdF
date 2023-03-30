@@ -6,7 +6,7 @@
 /*   By: csilva-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:08:43 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 16:43:25 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:46:11 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,16 @@ typedef struct s_fdf
 
 typedef struct s_bres
 {
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		e;
-	int		x0;
-	int		x1;
-	int		y0;
-	int		y1;
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	e;
+	int	e2;
 }		t_bres;
 
 int		check_file(char *file_name);
@@ -156,5 +157,6 @@ void	move_to_side(t_fdf *fdf, int right);
 void	move_to_updo(t_fdf *fdf, int down);
 void	change_color(t_fdf *fdf, int color);
 void	gradient(t_fdf *fdf, int color1, int color2);
+void	reset_fdf(t_fdf *fdf);
 
 #endif

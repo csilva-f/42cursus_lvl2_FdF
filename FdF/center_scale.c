@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 18:30:47 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/23 21:29:32 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:48:18 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	scale_map(t_fdf *fdf)
 
 	i = -1;
 	find_scale(fdf);
-	printf("scale: %f\n", fdf->s);
 	while (++i < fdf->arr->n)
 	{
 		aux = fdf->arr->ps[i]->x;

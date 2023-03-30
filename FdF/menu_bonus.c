@@ -6,11 +6,14 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 19:49:21 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 16:02:23 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:25:36 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_bonus.h"
+#include <alloca.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void	create_menu_2(int y, void *mlx, void *win)
 {
@@ -95,12 +98,12 @@ void	move_to_side(t_fdf *fdf, int right)
 			else
 				fdf->arr->ps[i]->x -= 10;
 		}
-		mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
-		fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
-		fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
-				&fdf->img->llen, &fdf->img->endian);
-		draw_lines(fdf, YELLOW, 0);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
+	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
+	fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
+	fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
+			&fdf->img->llen, &fdf->img->endian);
+	draw_lines(fdf, YELLOW, 0);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
 	}
 }
 
@@ -159,17 +162,17 @@ void	move_to_updo(t_fdf *fdf, int down)
 
 void	change_color(t_fdf *fdf, int color)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < fdf->arr->n)
 		fdf->arr->ps[i]->color = color;
 	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
-		fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
-		fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
+	fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
+	fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 				&fdf->img->llen, &fdf->img->endian);
-		draw_lines(fdf, YELLOW, color);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
+	draw_lines(fdf, YELLOW, color);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
 }
 
 void	gradient(t_fdf *fdf, int color1, int color2)
@@ -189,7 +192,7 @@ void	gradient(t_fdf *fdf, int color1, int color2)
 	fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
 	fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 			&fdf->img->llen, &fdf->img->endian);
-	draw_lines(fdf, YELLOW, color1);
+	draw_lines(fdf, YELLOW, 0);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win->win_ptr, fdf->img->img_ptr, 0, 0);
 }
 
@@ -198,9 +201,13 @@ void	reset_fdf(t_fdf *fdf)
 	int	i;
 
 	i = -1;
-	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
 	while (++i < fdf->arr->n)
+	{
+		printf("ANTES\nx: %f; y: %f; z: %d\n", (fdf->arr->ps[i]->x), (fdf->arr->ps[i]->y), (fdf->arr->ps[i]->z));
 		fdf->arr->ps[i] = fdf->arr2->ps[i];
+		printf("DEPOIS\nx: %f; y: %f; z: %d\n", (fdf->arr->ps[i]->x), (fdf->arr->ps[i]->y), (fdf->arr->ps[i]->z));
+	}
+	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
 	fdf->img->img_ptr = mlx_new_image(fdf->mlx_ptr, W_WIDTH, W_HEIGHT);
 	fdf->img->addr = mlx_get_data_addr(fdf->img->img_ptr, &fdf->img->bpp,
 			&fdf->img->llen, &fdf->img->endian);

@@ -6,7 +6,7 @@
 /*   By: csilva-f <csilva-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 22:26:49 by csilva-f          #+#    #+#             */
-/*   Updated: 2023/03/25 16:00:10 by csilva-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:33:26 by csilva-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,16 @@ void	center_map_win(t_fdf *fdf)
 		fdf->arr->ps[i]->x += (W_WIDTH / 2.0);
 		fdf->arr->ps[i]->y += (W_HEIGHT / 2.0);
 	}
+	fdf->arr2 = (t_arr *)malloc(sizeof(t_arr));
+	if (!(fdf->arr2))
+		error_handler(0);
+	fdf->arr2->ps = (t_p **)malloc(sizeof(t_p *) * (fdf->arr->n));
+	if (!(fdf->arr2->ps))
+		error_handler(0);
 	i = -1;
+	fdf->arr2->n = fdf->arr->n;
+	fdf->arr2->nl = fdf->arr->nl;
+	fdf->arr2->nc = fdf->arr->nc;
 	while (++i < fdf->arr->n)
 		fdf->arr2->ps[i] = fdf->arr->ps[i];
 }
